@@ -56,10 +56,5 @@ public class TestNgTestBase {
     Log.info("the end of all");
     WebDriverFactory.dismissAll();
   }
-  public void assertBgrndColor(WebElement webElement, String atribute, String atributeValue){
-    wait = new WebDriverWait(driver, 10);
-    wait.until(ExpectedConditions.attributeToBeNotEmpty(webElement,atribute));
-    Assert.assertEquals(webElement.getCssValue(atribute), atributeValue);
 
-  }
 }

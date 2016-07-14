@@ -4,6 +4,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import wordPress.TestNgTestBase;
@@ -12,9 +14,10 @@ import wordPress.util.Log;
 
 
 public class TestStartPage extends TestNgTestBase {
-
-
-
+   @BeforeTest
+           public void initClassObject() {
+       TestStartPage startPage = new TestStartPage();
+   }
     @BeforeMethod
     public void initStartPage() {
         Log.info("start");
@@ -36,34 +39,30 @@ public class TestStartPage extends TestNgTestBase {
 
     @Test(description = "check apps-link background color", enabled = true)
     public void checkZAppsLinkBgrndColor() {
-        TestStartPage startPage = new TestStartPage();
         pages.getStartPage().moveTo(pages.getStartPage().getAppsLink());
-        startPage.assertBgrndColor(pages.getStartPage().getAppsLink(), "background-color", "rgba(0, 0, 0, 0.298039)");
+        pages.getStartPage().assertBgrndColor(pages.getStartPage().getAppsLink(), "background-color", "rgba(0, 0, 0, 0.298039)");
 
     }
 
    @Test(description = "check themes-link background color", enabled = true)
     public void checkThemesLinkBgrndColor()  {
-       TestStartPage startPage = new TestStartPage();
         pages.getStartPage().moveTo(pages.getStartPage().getThemesLink());
-        startPage.assertBgrndColor(pages.getStartPage().getThemesLink(),"background-color", "rgba(0, 0, 0, 0.298039)");
+        pages.getStartPage().assertBgrndColor(pages.getStartPage().getThemesLink(),"background-color", "rgba(0, 0, 0, 0.298039)");
 
     }
 
 
     @Test(description = "check bgrd-color of signIn Button", enabled = true)
     public void checkSignInBtnColor()  {
-        TestStartPage startPage = new TestStartPage();
         pages.getStartPage().moveTo(pages.getStartPage().getSignInButton());
-        startPage.assertBgrndColor(pages.getStartPage().getSignInButton(),
+        pages.getStartPage().assertBgrndColor(pages.getStartPage().getSignInButton(),
                 "background","rgb(0, 170, 220) none repeat scroll 0% 0% / auto padding-box border-box");
 
     }
     @Test(description = "check bgrd-color of the createSite Button", enabled = true)
     public void checkCreateSiteBtnColor()  {
-        TestStartPage startPage = new TestStartPage();
         pages.getStartPage().moveTo(pages.getStartPage().getCreateSiteButton());
-        startPage.assertBgrndColor(pages.getStartPage().getCreateSiteButton(), "background",
+        pages.getStartPage().assertBgrndColor(pages.getStartPage().getCreateSiteButton(), "background",
                 "rgb(0, 170, 220) none repeat scroll 0% 0% / auto padding-box border-box");
 
     }

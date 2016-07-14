@@ -5,6 +5,8 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Factory;
 import wordPress.Page;
 
@@ -13,6 +15,7 @@ import wordPress.Page;
  * Sample pages
  */
 public class StartPage extends Page {
+
 
     @FindBy(id = "top-create-website-button")
     private WebElement createSiteButton;
@@ -74,7 +77,8 @@ public class StartPage extends Page {
     }
 
     public void moveTo(WebElement webelement) {
-
+        wait= new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.visibilityOf(webelement));
         Actions builder = new Actions(driver);
         builder.moveToElement(webelement);
         Action moveToLink = builder.build();

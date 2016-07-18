@@ -23,4 +23,16 @@ public class PagesOfTheSite {
         return new LostPasswordPage();
     }
 
+    public static MobilePage getMobilePage(){
+        return new MobilePage();
+    }
+
+    public static ForIosPage getForIosPage(){
+        return new ForIosPage();
+    }
+
+    public static ForAndroidPage getForAndroidPage(){
+        return new ForAndroidPage();
+    }
+
 }

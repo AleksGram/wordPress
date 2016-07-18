@@ -29,9 +29,6 @@ public class StartPage extends Page {
     @FindBy(css = "#apps")
     private WebElement appsLink;
 
-    public WebElement getMoreButton() {
-        return moreButton;
-    }
 
     @FindBy(css = "#themes")
 
@@ -43,6 +40,9 @@ public class StartPage extends Page {
     @FindBy(css = "#more-features-toggle>h3")
     private WebElement moreButton;
 
+    public WebElement getMoreButton() {
+        return moreButton;
+    }
 
     public WebElement getCreateSiteButton() {
         return createSiteButton;

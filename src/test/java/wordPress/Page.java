@@ -18,8 +18,12 @@ public abstract class Page {
     wait = new WebDriverWait(driver, 10);
     wait.until(ExpectedConditions.attributeToBeNotEmpty(webElement,atribute));
     Assert.assertEquals(webElement.getCssValue(atribute), atributeValue);
-
   }
+
+  public void assertIsDisplayed(WebElement element){
+    Assert.assertTrue(element.isDisplayed());
+  }
+
 
 
   public WebDriver driver = TestNgTestBase.driver;

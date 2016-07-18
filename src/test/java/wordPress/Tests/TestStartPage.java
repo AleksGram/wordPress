@@ -14,10 +14,7 @@ import wordPress.util.Log;
 
 
 public class TestStartPage extends TestNgTestBase {
-   @BeforeTest
-           public void initClassObject() {
-       TestStartPage startPage = new TestStartPage();
-   }
+
     @BeforeMethod
     public void initStartPage() {
         Log.info("start");
@@ -76,7 +73,14 @@ public class TestStartPage extends TestNgTestBase {
     @Test(description = "check presence of additional information",enabled = true)
     public void checkAdditionalInfo(){
         pages.getStartPage().getMoreButton().click();
-        Assert.assertTrue(pages.getStartPage().getInformationBlock().isDisplayed());
+       // Assert.assertTrue(pages.getStartPage().getInformationBlock().isDisplayed());
+        pages.getStartPage().assertIsDisplayed(pages.getStartPage().getInformationBlock());
+    }
+
+    @Test(description = "check crossing to Mobile Page")
+    public void checkCrossToMobilePage(){
+        pages.getStartPage().getAppsLink().click();
+        pages.getStartPage().assertIsDisplayed(pages.getMobilePage().getContentForm());
     }
 
     }

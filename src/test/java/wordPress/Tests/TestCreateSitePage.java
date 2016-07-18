@@ -30,8 +30,8 @@ public class TestCreateSitePage extends TestNgTestBase {
     }
 
 
-    @Test(description = "check menu items")
-    public void checkMenuItems() {
+    @Test(description = "check models of the site is visible")
+    public void checkModelsOfSite() {
         for (WebElement itemMenu : pages.getCreateSitePage().getMenuList()) {
             wait.until(ExpectedConditions.elementToBeClickable(itemMenu));
             Log.info("1-st cycle");

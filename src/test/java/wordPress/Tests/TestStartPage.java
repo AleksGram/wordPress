@@ -38,7 +38,7 @@ public class TestStartPage extends TestNgTestBase {
     //** after separation  assert method
 
     @Test(description = "check apps-link background color", enabled = true)
-    public void checkZAppsLinkBgrndColor() {
+    public void checkAppsLinkBgrndColor() {
         pages.getStartPage().moveTo(pages.getStartPage().getAppsLink());
         pages.getStartPage().assertBgrndColor(pages.getStartPage().getAppsLink(), "background-color", "rgba(0, 0, 0, 0.298039)");
 
@@ -72,6 +72,11 @@ public class TestStartPage extends TestNgTestBase {
         Assert.assertTrue(pages.getLoginPage().getLoginForm().isDisplayed());
         driver.get(baseUrl);
 
+    }
+    @Test(description = "check presence of additional information",enabled = true)
+    public void checkAdditionalInfo(){
+        pages.getStartPage().getMoreButton().click();
+        Assert.assertTrue(pages.getStartPage().getInformationBlock().isDisplayed());
     }
 
     }

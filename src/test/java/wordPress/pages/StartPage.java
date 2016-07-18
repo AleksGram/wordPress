@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Factory;
 import wordPress.Page;
 
+import java.util.List;
+
 
 /**
  * Sample pages
@@ -27,12 +29,27 @@ public class StartPage extends Page {
     @FindBy(css = "#apps")
     private WebElement appsLink;
 
+    public WebElement getMoreButton() {
+        return moreButton;
+    }
+
     @FindBy(css = "#themes")
+
     private WebElement themesLink;
+
+    @FindBy(css = "div.bf-wrapper")
+    private WebElement additionalInformationBlock;
+
+    @FindBy(css = "#more-features-toggle>h3")
+    private WebElement moreButton;
 
 
     public WebElement getCreateSiteButton() {
         return createSiteButton;
+    }
+
+    public WebElement getInformationBlock() {
+        return additionalInformationBlock;
     }
 
     public WebElement getSignInButton() {

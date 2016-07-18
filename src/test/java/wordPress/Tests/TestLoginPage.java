@@ -1,5 +1,6 @@
 package wordPress.Tests;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -48,5 +49,10 @@ public class TestLoginPage extends TestNgTestBase {
         pages.getLoginPage().typeLogin(login);
         pages.getLoginPage().typePasswd(passwd);
 
+    }
+    @Test(description = "check lost password link",enabled = true)
+    public void checkLostPasswdLink(){
+        pages.getLoginPage().getLostPassswdLink().click();
+        Assert.assertTrue(pages.getLostPasswordPage().getLostPasswdForm().isDisplayed());
     }
 }

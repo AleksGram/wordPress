@@ -19,4 +19,8 @@ public class PagesOfTheSite {
         return new CreateSitePage();
     }
 
+    public static LostPasswordPage getLostPasswordPage(){
+        return new LostPasswordPage();
+    }
+
 }

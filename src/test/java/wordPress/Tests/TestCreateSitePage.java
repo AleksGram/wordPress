@@ -23,57 +23,40 @@ public class TestCreateSitePage extends TestNgTestBase {
 
     }
 
-    @Test(description = "presentce of the creating site menu")
-    public void presenceMenu() {
-
+    @Test(description = "menu of the create of site is presence")
+    public void checkMenuIsPresense() {
         wait.until(ExpectedConditions.visibilityOfAllElements(pages.getCreateSitePage().getMenuList()));
-        for (WebElement itemMenu : pages.getCreateSitePage().getMenuList()) {
-            System.out.println(itemMenu.getCssValue("innerText"));
-            Assert.assertTrue(itemMenu.isDisplayed());
-        }
-
+            Assert.assertTrue(pages.getCreateSitePage().getMenuList().size()==6);
     }
 
 
-    @Test(description = "check menu items")//not work yet!!!
+    @Test(description = "check menu items")
     public void checkMenuItems() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(pages.getCreateSitePage().getMenuList()));
-
         for (WebElement itemMenu : pages.getCreateSitePage().getMenuList()) {
             wait.until(ExpectedConditions.elementToBeClickable(itemMenu));
+            Log.info("1-st cycle");
             itemMenu.click();
-
+            wait.until(ExpectedConditions.visibilityOfAllElements(pages.getCreateSitePage().getMenuList()));
             for(WebElement subMenu:pages.getCreateSitePage().getMenuList()) {
                 Actions builder = new Actions(driver);
-                builder.click(itemMenu);
+                builder.click(subMenu);
+                Log.info("2-nd cycle");
                 Action clickItem = builder.build();
                 clickItem.perform();
-
-                wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.step-wrapper__buttons")));
-                pages.getCreateSitePage().clickDownBackButton();
-
+               Assert.assertTrue(pages.getCreateSitePage().getModelForm().isDisplayed());
+                break;
             }
-
-           // pages.getCreateSitePage().clickBackButton();
+            break;
 
         }
 
     }
-    @Test
-    public void test(){
-        for(int i=0; i<pages.getCreateSitePage().getMenuList().size(); i++){
-            WebElement element=pages.getCreateSitePage().getMenuList().get(i);
-            wait.until(ExpectedConditions.elementToBeClickable(element));
-            element.click();
-            for(int j=0;j<pages.getCreateSitePage().getMenuList().size(); j++){
-                WebElement  subElement=pages.getCreateSitePage().getMenuList().get(i);
-                wait.until(ExpectedConditions.elementToBeClickable(subElement));
-                subElement.click();
-                pages.getCreateSitePage().getDownBackButton().click();
-            }
-           // pages.getCreateSitePage().getBackButton().click();
-        }
+    @Test(description = "check presence of the site models")
+                public void checkPresenceOfModelSiteForm(){
+                    pages.getCreateSitePage().assertPresenceOfModelForm();
+
     }
+
 
 
 }

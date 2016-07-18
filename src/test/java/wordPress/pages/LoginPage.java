@@ -24,6 +24,14 @@ public class LoginPage extends Page {
 
     @FindBy(css = "#loginform")
     private WebElement loginForm;
+    @FindBy(css = "#nav>a+a")
+    private WebElement lostPasswdLink;
+
+
+    public WebElement getLostPassswdLink() {
+        return lostPasswdLink;
+    }
+
 
     public LoginPage() {
     }

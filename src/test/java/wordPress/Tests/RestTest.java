@@ -10,29 +10,16 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import wordPress.TestNgTestBase;
 
-public class RestTest extends JerseyTest {
+public class RestTest extends TestNgTestBase {
 
     @Override
     protected AppDescriptor configure() {
         return new WebAppDescriptor.Builder().build();
     }
 
-    public  JSONObject createJsoneObject(String resourse, String path){
-        WebResource webResource = client().resource(resourse);
-                JSONObject name = webResource.path(path)
-                .get(JSONObject.class);
-        return name;
-    }
-    public  JSONObject createJsoneObject(){
-        String resourse="https://public-api.wordpress.com";
-        String path="/rest/v1.1/sites/sergeywebdrivertest.wordpress.com/posts/180/likes/";
 
-        WebResource webResource = client().resource(resourse);
-        JSONObject name = webResource.path(path)
-                .get(JSONObject.class);
-        return name;
-    }
 
     @Test
     public void testUserFetchesSucces1() throws JSONException {
@@ -46,8 +33,7 @@ public class RestTest extends JerseyTest {
     @Test
     public void testPosts() throws JSONException {
 
-       JSONObject json=createJsoneObject("https://public-api.wordpress.com",
-               "/rest/v1.1/sites/sergeywebdrivertest.wordpress.com/posts");
+       JSONObject json=createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
         JSONArray array = (JSONArray) json.get("posts");
 
         for (int i = 0; i < array.length(); i++) {

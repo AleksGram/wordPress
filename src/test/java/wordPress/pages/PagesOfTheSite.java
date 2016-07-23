@@ -1,7 +1,8 @@
 package wordPress.pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
+import wordPress.pages.insidePages.ArticlePage;
+import wordPress.pages.insidePages.LoginForm;
+import wordPress.pages.insidePages.SitePage;
 
 /**
  * Created by Грам on 02.07.2016.
@@ -34,5 +35,13 @@ public class PagesOfTheSite {
     public static ForAndroidPage getForAndroidPage(){
         return new ForAndroidPage();
     }
-
+    public static SitePage getSitePage(){
+        return new SitePage();
+    }
+    public static ArticlePage getArticlePage(){
+        return new ArticlePage();
+    }
+    public static LoginForm getLoginForm(){
+        return new LoginForm();
+    }
 }

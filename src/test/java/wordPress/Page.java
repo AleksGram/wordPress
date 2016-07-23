@@ -12,9 +12,9 @@ import wordPress.TestNgTestBase;
 
 public abstract class Page {
   public WebDriverWait wait;
+  public WebDriver driver = TestNgTestBase.driver;
 
   public void assertBgrndColor(WebElement webElement, String atribute, String atributeValue){
-
     wait = new WebDriverWait(driver, 10);
     wait.until(ExpectedConditions.attributeToBeNotEmpty(webElement,atribute));
     Assert.assertEquals(webElement.getCssValue(atribute), atributeValue);
@@ -24,17 +24,6 @@ public abstract class Page {
     Assert.assertTrue(element.isDisplayed());
   }
 
-
-
-  public WebDriver driver = TestNgTestBase.driver;
-  //protected WebDriver driver;
-  // protected PagesOfTheSite pages;
-
-  /*
-   * Constructor injecting the WebDriver interface
-   *
-   * @param webDriver
-   */
   public Page() {
     PageFactory.initElements(driver, this);
   }

@@ -29,13 +29,16 @@ public class LoginForm extends Page {
     public WebElement getSubmtButton() {
         return submtButton;
     }
-    public void typeLogin(String login){
+
+    public void typeLogin(String login) {
         loginfield.sendKeys(login);
     }
-    public void typePasswd(String pass){
-        loginfield.sendKeys(pass);
+
+    public void typePasswd(String pass) {
+        passfield.sendKeys(pass);
     }
-    public void clickSubmtButton(){
+
+    public void clickSubmtButton() {
         submtButton.click();
     }
 

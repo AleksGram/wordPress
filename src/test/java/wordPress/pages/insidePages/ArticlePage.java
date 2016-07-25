@@ -14,7 +14,12 @@ public class ArticlePage extends Page {
     @FindBy(css = ".like.sd-button")
     private WebElement likeButton;
 
+    @FindBy(css = ".sd-button.liked")
+    private WebElement likeButtonAfterLike;
 
+    public WebElement getLikeButtonAfterLike() {
+        return likeButtonAfterLike;
+    }
 
     public WebElement getLikeButton() {
         return likeButton;

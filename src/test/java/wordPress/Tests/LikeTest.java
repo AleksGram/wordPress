@@ -10,7 +10,7 @@ import wordPress.TestNgTestBase;
 
 public class LikeTest extends TestNgTestBase {
 
-    private String login = "****";    //your WordPress login
+    private String login = "***";    //your WordPress login
     private String pass = "****";      //your WordPress password
 
     private String path="/rest/v1.1/sites/grammsite.wordpress.com/posts/4/likes/";
@@ -41,13 +41,15 @@ public class LikeTest extends TestNgTestBase {
         pages.getLoginForm().clickSubmtButton();
 
         //--reclick
-       /* switchToWindow(0);
+        switchToWindow(0);
+        waitPresenceElement(".post-likes-widget.jetpack-likes-widget");
         switchToFrame(".post-likes-widget.jetpack-likes-widget");
-        pages.getArticlePage().getLikeButton().click();
-        */
+        waitPresenceElement(".sd-button.liked");
+        pages.getArticlePage().getLikeButtonAfterLike().click();
+
 
         JSONObject json2 = createJsoneObject(path);
-        Assert.assertEquals(json.get("found"), 1);
-        //System.out.println("after ckick "+json.get("found"));
+        Assert.assertEquals(json2.get("found"), 1);
+        //System.out.println("after ckick "+json2.get("found"));
     }
 }

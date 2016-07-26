@@ -1,17 +1,15 @@
-package wordPress.pages;
+package wordPress.pages.uiPages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import wordPress.Page;
 
 import java.util.List;
 
-import static wordPress.pages.PagesOfTheSite.getCreateSitePage;
+import static wordPress.PagesOfTheSite.getCreateSitePage;
 
 /**
  * Created by Грам on 05.07.2016.

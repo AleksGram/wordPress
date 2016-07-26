@@ -1,4 +1,4 @@
-package wordPress.pages;
+package wordPress.pages.uiPages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
@@ -7,10 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Factory;
 import wordPress.Page;
-
-import java.util.List;
+import wordPress.pages.uiPages.CreateSitePage;
+import wordPress.pages.uiPages.LoginPage;
 
 
 /**
@@ -60,6 +59,10 @@ public class StartPage extends Page {
     public WebElement getAppsLink() {
 
         return appsLink;
+    }
+
+    public void typeLogin(String login){
+
     }
 
     public WebElement getThemesLink() {

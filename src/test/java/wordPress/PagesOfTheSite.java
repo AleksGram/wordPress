@@ -1,8 +1,9 @@
-package wordPress.pages;
+package wordPress;
 
+import wordPress.pages.insidePages.*;
 import wordPress.pages.insidePages.ArticlePage;
-import wordPress.pages.insidePages.LoginForm;
 import wordPress.pages.insidePages.SitePage;
+import wordPress.pages.uiPages.*;
 
 /**
  * Created by Грам on 02.07.2016.
@@ -43,5 +44,11 @@ public class PagesOfTheSite {
     }
     public static LoginForm getLoginForm(){
         return new LoginForm();
+    }
+    public static AdminWPPage getAdminWPPage(){
+        return new AdminWPPage();
+    }
+    public static EditorPage getEditorPage(){
+        return new EditorPage();
     }
 }

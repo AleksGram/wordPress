@@ -10,8 +10,8 @@ import wordPress.TestNgTestBase;
 
 public class LikeTest extends TestNgTestBase {
 
-    private String login = "***";    //your WordPress login
-    private String pass = "****";      //your WordPress password
+    private String login = "grammsite";    //your WordPress login
+    private String pass = "civiced1986";      //your WordPress password
 
     private String path="/rest/v1.1/sites/grammsite.wordpress.com/posts/4/likes/";
 

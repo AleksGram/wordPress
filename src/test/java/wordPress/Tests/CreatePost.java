@@ -16,16 +16,16 @@ import wordPress.util.Log;
  * Created by User on 26.07.2016.
  */
 public class CreatePost extends TestNgTestBase {
-  /*  @BeforeMethod
-    public void initLoginPage() {
-        Log.info("start");
-      driver.get("https://ru.wordpress.com/wp-login.php");
-        wait=new WebDriverWait(driver, 10);
-    }*/
+    /*  @BeforeMethod
+      public void initLoginPage() {
+          Log.info("start");
+        driver.get("https://ru.wordpress.com/wp-login.php");
+          wait=new WebDriverWait(driver, 10);
+      }*/
     @Test
     public void createPostTest() throws JSONException {
-       /* pages.getLoginPage().typeLogin("grammsite");
-        pages.getLoginPage().typePasswd("civiced1986");
+       /* pages.getLoginPage().typeLogin("***");
+        pages.getLoginPage().typePasswd("***");
         pages.getLoginPage().clickSubmittButton();
         wait.until(ExpectedConditions.elementToBeClickable(pages.getAdminWPPage().getCreateNewButton()));
         pages.getAdminWPPage().getCreateNewButton().click();
@@ -38,20 +38,30 @@ public class CreatePost extends TestNgTestBase {
         pages.getEditorPage().getPublishButton().click();*/
 
 
-      //JSONObject json = webResource.path("/rest/v1.1/sites/grammsite.wordpress.com/posts").get(JSONObject.class);
-        JSONObject json =createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
-        JSONArray jsonArray=json.getJSONArray("posts");
+        //JSONObject json = webResource.path("/rest/v1.1/sites/grammsite.wordpress.com/posts").get(JSONObject.class);
+        JSONObject json = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
+        JSONArray jsonArray = json.getJSONArray("posts");
         System.out.println(jsonArray.getJSONObject(0).getString("title"));
         boolean postCreated = false;
-        for (int i=0; i<jsonArray.length(); i++){
-          if(jsonArray.getJSONObject(i).getString("title").equals("Hillel auto")){
-              postCreated=true;
-              break;
-          }
+        for (int i = 0; i < jsonArray.length(); i++) {
+            if (jsonArray.getJSONObject(i).getString("title").equals("Hillel auto")) {
+                postCreated = true;
+                break;
+            }
         }
         Assert.assertTrue(postCreated);
-           }
+    }
 
-
-
+    @Test(description = "check delete post", enabled = true)
+    public void checkDeletePost() {
+        driver.get("https://wordpress.com/post/grammsite.wordpress.com");
+        pages.getLoginPage().typeLogin("***");
+        pages.getLoginPage().typePasswd("***");
+        pages.getLoginPage().clickSubmittButton();
+        pages.getAdminPanelPage().getMySiteBtn().click();
+        pages.getAdminPanelPage().getShowPostsItem().click();
+        pages.getAdminPanelPage().getDeletePostBtn().click();
+    }
 }
+
+

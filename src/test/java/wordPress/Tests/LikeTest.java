@@ -10,8 +10,6 @@ import wordPress.TestNgTestBase;
 
 public class LikeTest extends TestNgTestBase {
 
-    private String login = "   ";    //your WordPress login
-    private String pass = "    ";      //your WordPress password
 
     private String path="/rest/v1.1/sites/grammsite.wordpress.com/posts/4/likes/";
 
@@ -30,7 +28,7 @@ public class LikeTest extends TestNgTestBase {
         //System.out.println("before ckick "+json.get("found"));
 
         pages.getSitePage().getListOfArticles().get(0).click();
-        waitPresenceElement(".post-likes-widget.jetpack-likes-widget");
+        waitPresenceElementCss(".post-likes-widget.jetpack-likes-widget");
         switchToFrame(".post-likes-widget.jetpack-likes-widget");
         pages.getArticlePage().getLikeButton().click();
 
@@ -42,9 +40,9 @@ public class LikeTest extends TestNgTestBase {
 
         //--reclick
         switchToWindow(0);
-        waitPresenceElement(".post-likes-widget.jetpack-likes-widget");
+        waitPresenceElementCss(".post-likes-widget.jetpack-likes-widget");
         switchToFrame(".post-likes-widget.jetpack-likes-widget");
-        waitPresenceElement(".sd-button.liked");
+        waitPresenceElementCss(".sd-button.liked");
         pages.getArticlePage().getLikeButtonAfterLike().click();
 
 

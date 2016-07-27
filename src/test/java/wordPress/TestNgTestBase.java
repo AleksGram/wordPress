@@ -6,6 +6,8 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.WebAppDescriptor;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -27,6 +29,8 @@ import wordPress.util.PropertyLoader;
  * Base class for TestNG-based test classes
  */
 public class TestNgTestBase extends JerseyTest {
+    public String login = "***";  //yuor wordPress login
+    public String pass = "***"; //your wordPress password
 
     @Override
     protected AppDescriptor configure() {
@@ -65,11 +69,12 @@ public class TestNgTestBase extends JerseyTest {
         WebDriverFactory.dismissAll();
     }
 
-    public WebResource webResource = client().resource("https://public-api.wordpress.com");
-
     public void navigateToURL(String url) {
         driver.get(url);
     }
+
+    public WebResource webResource = client().resource("https://public-api.wordpress.com");
+
 
     public JSONObject createJsoneObject(String path) {
         JSONObject name = webResource.path(path)
@@ -77,9 +82,9 @@ public class TestNgTestBase extends JerseyTest {
         return name;
     }
 
-    public JSONObject createJsoneObject() {
-        String resourse = "https://public-api.wordpress.com";
-        String path = "/rest/v1.1/sites/sergeywebdrivertest.wordpress.com/posts/180/likes/";
+    public JSONObject createJsoneObject(String resourseUrl, String pathRequest) {
+        String resourse = resourseUrl;
+        String path = pathRequest;
 
         WebResource webResource = client().resource(resourse);
         JSONObject name = webResource.path(path)
@@ -95,7 +100,39 @@ public class TestNgTestBase extends JerseyTest {
         driver.switchTo().window(driver.getWindowHandles().toArray()[level].toString());
     }
 
-    public void waitPresenceElement(String selector) {
+    public void waitPresenceElementCss(String selector) {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(selector)));
     }
+
+    public void waitPresenceElementXpath(String selector) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(selector)));
+    }
+
+
+    public void fillLoginForm() {
+        pages.getLoginPage().typeLogin(login);
+        pages.getLoginPage().typePasswd(pass);
+        pages.getLoginPage().clickSubmittButton();
+    }
+
+    public void reestablishPost() {
+        waitPresenceElementXpath(".//div[1]/div/ul/li[3]");
+        pages.getEditorPage().clickInBasketBtn();
+        waitPresenceElementCss(".post-controls__restore");
+        pages.getEditorPage().clickReestablishBtn();
+    }
+
+    public JSONArray createJsoneArray(String path, String key) throws JSONException {
+        JSONObject json = createJsoneObject(path);
+        JSONArray name = json.getJSONArray(key);
+        return name;
+    }
+
+    public String getPostID(int postNumber) throws JSONException {
+        JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
+        return jsonArray.getJSONObject(postNumber).getString("ID");
+
+    }
+
+
 }

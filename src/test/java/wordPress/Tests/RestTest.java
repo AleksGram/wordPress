@@ -23,10 +23,10 @@ public class RestTest extends TestNgTestBase {
 
     @Test
     public void testUserFetchesSucces1() throws JSONException {
-        JSONObject json= createJsoneObject();
+        JSONObject json= createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
         Assert.assertEquals(json.get("found"), 1);
 
-        JSONObject json1 = createJsoneObject();
+        JSONObject json1 = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
         Assert.assertEquals(json1.get("found"), 0);
     }
 

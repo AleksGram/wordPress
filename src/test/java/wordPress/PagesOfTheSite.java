@@ -51,4 +51,7 @@ public class PagesOfTheSite {
     public static EditorPage getEditorPage(){
         return new EditorPage();
     }
+    public static AdminPanelPage getAdminPanelPage(){
+        return new AdminPanelPage();
+    }
 }

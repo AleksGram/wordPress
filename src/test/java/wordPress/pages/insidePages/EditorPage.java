@@ -20,12 +20,45 @@ public class EditorPage extends Page {
     @FindBy(xpath = ".//*[@id='primary']//li[2]/a")
     private WebElement htmlButton;
 
+    @FindBy(css = ".conf-alert_con")
+    private WebElement deleteMessage;
+
+    @FindBy(xpath = ".//div[1]/div/ul/li[3]")
+    private WebElement inBasketBtn;
+
+    @FindBy(css = ".post-controls__restore")
+    private WebElement reestablishBtn;
+
+    public WebElement getTitle() {
+        return title;
+    }
+
+    public WebElement getReestablishBtn() {
+        return reestablishBtn;
+    }
+
+    public WebElement getInBasketBtn() {
+        return inBasketBtn;
+    }
+
+    public WebElement getDeleteMessage() {
+        return deleteMessage;
+    }
+
     public WebElement getHtmlButton() {
         return htmlButton;
     }
 
     public void clickHtmlBtn(){
         htmlButton.click();
+    }
+
+    public void clickInBasketBtn(){
+        inBasketBtn.click();
+    }
+
+    public void clickReestablishBtn(){
+        reestablishBtn.click();
     }
 
     public WebElement getPublishButton() {

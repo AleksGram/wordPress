@@ -15,12 +15,14 @@ import wordPress.util.Log;
  * Created by User on 26.07.2016.
  */
 public class CreatePost extends TestNgTestBase {
+
     @BeforeMethod
     public void initLoginPage() {
         Log.info("start");
         driver.get("https://ru.wordpress.com/wp-login.php");
         fillLoginForm();
         wait = new WebDriverWait(driver, 10);
+
     }
 
     @Test(description = "check create post", enabled = true)
@@ -61,9 +63,13 @@ public class CreatePost extends TestNgTestBase {
         pages.getAdminPanelPage().getDeletePostBtn().click();
         Assert.assertTrue(pages.getEditorPage().getDeleteMessage().isDisplayed());
 
+        //before
         /*JSONObject json = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
         JSONArray jsonArray = json.getJSONArray("posts");*/
+
+        //after
         JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
+
         boolean postPresent = true;
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).getString("ID").equals(postID)) {
@@ -71,10 +77,12 @@ public class CreatePost extends TestNgTestBase {
                 break;
             }
         }
-        Assert.assertFalse(postPresent);
+        Assert.assertTrue(postPresent);
 
         reestablishPost();
     }
+
+
 }
 
 

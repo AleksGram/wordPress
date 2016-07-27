@@ -15,6 +15,7 @@ import org.openqa.selenium.Capabilities;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -134,5 +135,29 @@ public class TestNgTestBase extends JerseyTest {
 
     }
 
+    public void assertPresenceInPost(String postID) throws JSONException {
+        JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
+        boolean presenceInPosts = false;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            if (jsonArray.getJSONObject(i).getString("ID").equals(postID)) {
+                presenceInPosts = true;
+                break;
+            }
+            Assert.assertTrue(presenceInPosts);
 
+        }
+    }
+
+    public void assertAbsentInPost(String postID) throws JSONException {
+        JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
+        boolean absentInPosts = true;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            if (jsonArray.getJSONObject(i).getString("ID").equals(postID)) {
+                absentInPosts = false;
+                break;
+            }
+            Assert.assertTrue(absentInPosts);
+
+        }
+    }
 }

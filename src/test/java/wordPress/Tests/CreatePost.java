@@ -2,7 +2,6 @@ package wordPress.Tests;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -15,6 +14,7 @@ import wordPress.util.Log;
  * Created by User on 26.07.2016.
  */
 public class CreatePost extends TestNgTestBase {
+    String postID = null;
 
     @BeforeMethod
     public void initLoginPage() {
@@ -47,27 +47,24 @@ public class CreatePost extends TestNgTestBase {
             }
         }
         Assert.assertTrue(postCreated);
-        System.out.println(getPostID(0));
 
     }
 
     @Test(description = "check delete post", enabled = true)
-    public void checkDeletePost() throws JSONException {
+    public void checkDeletePost() throws JSONException, InterruptedException {
         String postID = getPostID(0);
-
-        waitPresenceElementCss(".masterbar__item");
-        pages.getAdminPanelPage().getMySiteBtn().click();
-        waitPresenceElementCss(".posts");
-        pages.getAdminPanelPage().getShowPostsItem().click();
+        openPostsInBlog();
         waitPresenceElementCss(".post-controls__trash :nth-child(1)");
         pages.getAdminPanelPage().getDeletePostBtn().click();
         Assert.assertTrue(pages.getEditorPage().getDeleteMessage().isDisplayed());
+        Log.info("Assert error message - pass");
 
-        //before
+
         /*JSONObject json = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
         JSONArray jsonArray = json.getJSONArray("posts");*/
 
-        //after
+
+        Thread.sleep(5000);
         JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
 
         boolean postPresent = true;
@@ -78,8 +75,19 @@ public class CreatePost extends TestNgTestBase {
             }
         }
         Assert.assertTrue(postPresent);
+        Log.info("Assert delete posts - pass");
 
+
+        //reestablishPost();
+    }
+
+    @Test(description = "check restablishing of post", dependsOnMethods = {"checkDeletePost"}, enabled = true)
+    public void checkRestablish() throws JSONException, InterruptedException {
+        openPostsInBlog();
+        assertPostIsAbsent("8");
         reestablishPost();
+        waitPresenceElementCss(".conf-alert_title");
+        assertPostIsPresence("8");
     }
 
 

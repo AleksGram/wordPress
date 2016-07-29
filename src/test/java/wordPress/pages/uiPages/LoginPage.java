@@ -67,9 +67,11 @@ public class LoginPage extends Page {
     }
 
     public  void typeLogin(String login) {
+        emailField.clear();
         emailField.sendKeys(login);
     }
     public  void typePasswd(String passwd) {
+        psswdField.clear();
         psswdField.sendKeys(passwd);
     }
 

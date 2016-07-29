@@ -23,11 +23,19 @@ public class EditorPage extends Page {
     @FindBy(css = ".conf-alert_con")
     private WebElement deleteMessage;
 
+
+    @FindBy(css = ".conf-alert_title")
+    private WebElement reestablishedMessage;
+
     @FindBy(xpath = ".//div[1]/div/ul/li[3]")
     private WebElement inBasketBtn;
 
     @FindBy(css = ".post-controls__restore")
     private WebElement reestablishBtn;
+
+    public WebElement getReestablishedMessage() {
+        return reestablishedMessage;
+    }
 
     public WebElement getTitle() {
         return title;

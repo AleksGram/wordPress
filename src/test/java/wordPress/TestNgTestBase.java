@@ -135,7 +135,7 @@ public class TestNgTestBase extends JerseyTest {
 
     }
 
-    public void assertPresenceInPost(String postID) throws JSONException {
+    public void assertPostIsPresence(String postID) throws JSONException {
         JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
         boolean presenceInPosts = false;
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -148,7 +148,7 @@ public class TestNgTestBase extends JerseyTest {
         }
     }
 
-    public void assertAbsentInPost(String postID) throws JSONException {
+    public void assertPostIsAbsent(String postID) throws JSONException {
         JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
         boolean absentInPosts = true;
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -159,5 +159,12 @@ public class TestNgTestBase extends JerseyTest {
             Assert.assertTrue(absentInPosts);
 
         }
+    }
+
+    public void openPostsInBlog(){
+        waitPresenceElementCss(".masterbar__item");
+        pages.getAdminPanelPage().getMySiteBtn().click();
+        waitPresenceElementCss(".posts");
+        pages.getAdminPanelPage().getShowPostsItem().click();
     }
 }

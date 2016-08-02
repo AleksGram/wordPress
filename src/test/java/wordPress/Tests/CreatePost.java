@@ -2,6 +2,7 @@ package wordPress.Tests;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -63,10 +64,8 @@ public class CreatePost extends TestNgTestBase {
         /*JSONObject json = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
         JSONArray jsonArray = json.getJSONArray("posts");*/
 
-
-        Thread.sleep(5000);
+        waitPresenceElementXpath(".//div[1]/div/ul/li[3]/a");
         JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
-
         boolean postPresent = true;
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).getString("ID").equals(postID)) {
@@ -86,7 +85,7 @@ public class CreatePost extends TestNgTestBase {
         openPostsInBlog();
         assertPostIsAbsent("8");
         reestablishPost();
-        waitPresenceElementCss(".conf-alert_title");
+      waitPresenceElementCss(".conf-alert");
         assertPostIsPresence("8");
     }
 

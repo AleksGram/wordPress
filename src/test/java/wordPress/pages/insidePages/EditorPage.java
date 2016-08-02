@@ -24,7 +24,7 @@ public class EditorPage extends Page {
     private WebElement deleteMessage;
 
 
-    @FindBy(css = ".conf-alert_title")
+    @FindBy(css = ".conf-alert")
     private WebElement reestablishedMessage;
 
     @FindBy(xpath = ".//div[1]/div/ul/li[3]")
@@ -32,6 +32,13 @@ public class EditorPage extends Page {
 
     @FindBy(css = ".post-controls__restore")
     private WebElement reestablishBtn;
+
+    @FindBy(xpath = ".//div[1]/div/ul/li[3]/a")
+    private WebElement inBasketItem;
+
+    public WebElement getInBasketItem() {
+        return inBasketItem;
+    }
 
     public WebElement getReestablishedMessage() {
         return reestablishedMessage;

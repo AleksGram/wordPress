@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.Capabilities;
 
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -109,6 +110,10 @@ public class TestNgTestBase extends JerseyTest {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(selector)));
     }
 
+    public void waitVisabilityOfElement(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
 
     public void fillLoginForm() {
         pages.getLoginPage().typeLogin(login);
@@ -121,6 +126,7 @@ public class TestNgTestBase extends JerseyTest {
         pages.getEditorPage().clickInBasketBtn();
         waitPresenceElementCss(".post-controls__restore");
         pages.getEditorPage().clickReestablishBtn();
+        waitPresenceElementCss(".conf-alert");
     }
 
     public JSONArray createJsoneArray(String path, String key) throws JSONException {

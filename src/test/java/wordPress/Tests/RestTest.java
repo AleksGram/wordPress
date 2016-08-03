@@ -11,6 +11,12 @@ import org.codehaus.jettison.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import wordPress.TestNgTestBase;
+import wordPress.util.WriteRead;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class RestTest extends TestNgTestBase {
 
@@ -20,10 +26,9 @@ public class RestTest extends TestNgTestBase {
     }
 
 
-
     @Test
     public void testUserFetchesSucces1() throws JSONException {
-        JSONObject json= createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
+        JSONObject json = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
         Assert.assertEquals(json.get("found"), 1);
 
         JSONObject json1 = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
@@ -33,7 +38,7 @@ public class RestTest extends TestNgTestBase {
     @Test
     public void testPosts() throws JSONException {
 
-       JSONObject json=createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
+        JSONObject json = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
         JSONArray array = (JSONArray) json.get("posts");
 
         for (int i = 0; i < array.length(); i++) {
@@ -44,6 +49,31 @@ public class RestTest extends TestNgTestBase {
 
 
         }
+
+    }
+
+    @Test()
+    /* вынести все методы в утилиты запись/чтение
+    убрать путь
+    Data Provider запрос - ответ.
+    */
+    public void testWordPressAPI() throws IOException, JSONException {
+        WriteRead wr = new WriteRead();
+        JSONObject json = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
+
+        // To write a file
+
+        wr.writeJson("src\\test\\resources/posts.json", json);
+
+        System.out.println("Successfully Copied JSON Object to File...");
+        System.out.println("\nJSON Object: " + json);
+
+        //TO Read json
+
+        JSONObject jsonExp = wr.readJson("src\\test\\resources/posts.json");
+
+        Assert.assertEquals(json.getJSONArray("posts").getJSONObject(0).getJSONObject("author").get("ID"),
+                jsonExp.getJSONArray("posts").getJSONObject(0).getJSONObject("author").get("ID"), "Good message to understand");
 
     }
 }

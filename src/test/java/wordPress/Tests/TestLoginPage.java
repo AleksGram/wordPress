@@ -49,7 +49,10 @@ public class TestLoginPage extends TestNgTestBase {
         pages.getLoginPage().typeLogin(login);
         pages.getLoginPage().typePasswd(passwd);
 
+
     }
+
+
     @Test(description = "check lost password link",enabled = true)
     public void checkLostPasswdLink(){
         pages.getLoginPage().getLostPassswdLink().click();

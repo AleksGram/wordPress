@@ -59,11 +59,11 @@ public class TestNgTestBase extends JerseyTest {
         WebDriverFactory.setMode(WebDriverFactoryMode.THREADLOCAL_SINGLETON);
     }
 
-    @BeforeMethod
+    /*@BeforeMethod
     public void initWebDriver() {
         driver = WebDriverFactory.getDriver(gridHubUrl, capabilities);
         wait = new WebDriverWait(driver, 10);
-    }
+    }*/
 
     @AfterSuite(alwaysRun = true)
     public void tearDown() {

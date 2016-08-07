@@ -9,8 +9,12 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import wordPress.TestNgTestBase;
+import wordPress.util.DataProviders;
+import wordPress.util.DataSource;
+import wordPress.util.ExcelUtils;
 import wordPress.util.WriteRead;
 
 import java.io.BufferedReader;
@@ -26,7 +30,7 @@ public class RestTest extends TestNgTestBase {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void testUserFetchesSucces1() throws JSONException {
         JSONObject json = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
         Assert.assertEquals(json.get("found"), 1);
@@ -35,7 +39,7 @@ public class RestTest extends TestNgTestBase {
         Assert.assertEquals(json1.get("found"), 0);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testPosts() throws JSONException {
 
         JSONObject json = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
@@ -52,28 +56,44 @@ public class RestTest extends TestNgTestBase {
 
     }
 
-    @Test()
-    /* вынести все методы в утилиты запись/чтение
-    убрать путь
-    Data Provider запрос - ответ.
-    */
-    public void testWordPressAPI() throws IOException, JSONException {
-        WriteRead wr = new WriteRead();
+    @Test(dataProvider = "getJson", dataProviderClass = DataProviders.class)
+    @DataSource(json ="src\\test\\resources/posts.json" )
+
+    public void testWordPressAPI(String expectedJson   ) throws IOException, JSONException {
+       // WriteRead wr = new WriteRead();
         JSONObject json = createJsoneObject("/rest/v1.1/sites/grammsite.wordpress.com/posts");
 
-        // To write a file
+        /* To write a file
 
         wr.writeJson("src\\test\\resources/posts.json", json);
 
         System.out.println("Successfully Copied JSON Object to File...");
         System.out.println("\nJSON Object: " + json);
-
+*/
         //TO Read json
 
-        JSONObject jsonExp = wr.readJson("src\\test\\resources/posts.json");
+      // JSONObject jsonExp = wr.readJson("src\\test\\resources/posts.json");
 
+        JSONObject jsonExp= new JSONObject(expectedJson);
         Assert.assertEquals(json.getJSONArray("posts").getJSONObject(0).getJSONObject("author").get("ID"),
                 jsonExp.getJSONArray("posts").getJSONObject(0).getJSONObject("author").get("ID"), "Good message to understand");
 
     }
+
+
+    @Test(dataProvider = "ExcelData", dataProviderClass = DataProviders.class)
+    @DataSource(xls ="src\\test\\resources\\ApiData.xlsx" )
+
+    public void testWeatherAPI(String idValue, String expName) throws JSONException {
+
+        WebResource webResource = client().resource("http://api.openweathermap.org");
+        JSONObject json =
+                webResource.path("/data/2.5/weather").queryParam("id",idValue)
+                        .queryParam("APPID","c5ab9ff131b9aa83256a683780587926")
+                        .get(JSONObject.class);
+        Assert.assertEquals(expName, json.get("name"));
+
+    }
+
+
 }

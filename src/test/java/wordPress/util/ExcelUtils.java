@@ -95,14 +95,6 @@ public class ExcelUtils {
             Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
 
             int dataType = Cell.getCellType();
-        System.out.println("Data Type= "+dataType);
-
-
-
-
-
-
-
 
                 String CellData = Cell.getStringCellValue();
 

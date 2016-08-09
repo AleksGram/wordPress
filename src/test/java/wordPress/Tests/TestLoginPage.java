@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import wordPress.TestNgTestBase;
 import wordPress.util.ExcelUtils;
 import wordPress.util.Log;
+import wordPress.util.ReadExcel;
 
 /**
  * Created by Грам on 05.07.2016.
@@ -38,15 +39,14 @@ public class TestLoginPage extends TestNgTestBase {
     @DataProvider(name = "ExcelData", parallel = false)
 
     public Object[][] credentials() {
-        Object[][] testObjArray = ExcelUtils.getTableArray("D:\\LoginData.xlsx", "Лист1");
+        Object[][] testObjArray = ExcelUtils.getTableArray("D:\\LoginData.xlsx", "Лист1", 2);
         return testObjArray;
     }
 
     @Test(dataProvider = "ExcelData")
     public void userLogin(String login, String passwd)  {
 
-
-        pages.getLoginPage().typeLogin(login);
+       pages.getLoginPage().typeLogin(login);
         pages.getLoginPage().typePasswd(passwd);
 
 
@@ -57,5 +57,20 @@ public class TestLoginPage extends TestNgTestBase {
     public void checkLostPasswdLink(){
         pages.getLoginPage().getLostPassswdLink().click();
         Assert.assertTrue(pages.getLostPasswordPage().getLostPasswdForm().isDisplayed());
+    }
+
+    @DataProvider(name = "ExcelDiff", parallel = false)
+
+    public Object[][] readData() {
+        Object[][] testObjArray = ReadExcel.getTableArray("D:\\LoginData.xlsx", "Лист1");
+        return testObjArray;
+    }
+
+    @Test(dataProvider = "ExcelDiff")
+    public void getData(Double login, Double passwd)  {
+
+        System.out.println(login+" and "+passwd);
+
+
     }
 }

@@ -59,7 +59,7 @@ public class TestNgTestBase extends JerseyTest {
         WebDriverFactory.setMode(WebDriverFactoryMode.THREADLOCAL_SINGLETON);
     }
 
-    /*@BeforeMethod
+ /*  @BeforeMethod
     public void initWebDriver() {
         driver = WebDriverFactory.getDriver(gridHubUrl, capabilities);
         wait = new WebDriverWait(driver, 10);
@@ -90,6 +90,18 @@ public class TestNgTestBase extends JerseyTest {
 
         WebResource webResource = client().resource(resourse);
         JSONObject name = webResource.path(path)
+                .get(JSONObject.class);
+        return name;
+    }
+
+    public JSONObject createJsnObjWithQuerPar(String resourseUrl, String pathRequest,
+                                 String querPar1, String querVal1, String querPar2, String querVal2) {
+        String resourse = resourseUrl;
+        String path = pathRequest;
+
+        WebResource webResource = client().resource(resourse);
+        JSONObject name = webResource.path(path).queryParam(querPar1, querVal1)
+                .queryParam(querPar2, querVal2)
                 .get(JSONObject.class);
         return name;
     }

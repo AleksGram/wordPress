@@ -9,6 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
+
 /**
  * Created by Грам on 07.07.2016.
  */
@@ -22,7 +23,7 @@ public class ExcelUtils {
 
     private static XSSFRow Row;
 
-    public static Object[][] getTableArray(String FilePath, String SheetName)  {
+    public static Object[][] getTableArray(String FilePath, String SheetName, int totalCols)  {
 
         String[][] tabArray = null;
 
@@ -46,7 +47,7 @@ public class ExcelUtils {
 
             // you can write a function as well to get Column count
 
-            int totalCols = 2;
+            //int totalCols = 2;
 
             tabArray = new String[totalRows +1][totalCols];
 
@@ -92,19 +93,20 @@ public class ExcelUtils {
 
 
 
-            Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
-
-            int dataType = Cell.getCellType();
-
-                String CellData = Cell.getStringCellValue();
-
-                return CellData;
+        Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
 
 
+        int dataType = Cell.getCellType();
 
-        }
+        String CellData = Cell.getStringCellValue();
+
+        return CellData;
+
+
 
     }
+
+}
 
 
 

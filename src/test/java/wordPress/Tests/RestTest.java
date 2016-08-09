@@ -85,7 +85,7 @@ public class RestTest extends TestNgTestBase {
     @DataSource(xls = "src\\test\\resources\\ApiData.xlsx")
 
     public void testWeatherAPI(String resourceUrl, String pathRequest, String querPar1, String querVal1,
-                               String querPar2, String querVal2, String expName) throws JSONException {
+                               String querPar2, String querVal2, String expValue) throws JSONException {
 
        /* WebResource webResource = client().resource("http://api.openweathermap.org");
         JSONObject json =
@@ -93,7 +93,7 @@ public class RestTest extends TestNgTestBase {
                         .queryParam("APPID","c5ab9ff131b9aa83256a683780587926")
                         .get(JSONObject.class);*/
         JSONObject json = createJsnObjWithQuerPar(resourceUrl, pathRequest, querPar1, querVal1, querPar2, querVal2);
-        Assert.assertEquals(expName, json.get("name"));
+        Assert.assertEquals(expValue, json.get("name"));
 
     }
 

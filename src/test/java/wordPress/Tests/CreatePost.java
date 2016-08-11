@@ -39,7 +39,7 @@ public class CreatePost extends TestNgTestBase {
         pages.getEditorPage().getPublishButton().click();
 
 
-        JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
+        JSONArray jsonArray = createJsoneArray(urlApiWP, pathPosts.pathValue, "posts");
         boolean postCreated = false;
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).getString("title").equals("Hillel auto")) {
@@ -65,7 +65,7 @@ public class CreatePost extends TestNgTestBase {
         JSONArray jsonArray = json.getJSONArray("posts");*/
 
         waitPresenceElementXpath(".//div[1]/div/ul/li[3]/a");
-        JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
+        JSONArray jsonArray = createJsoneArray(urlApiWP, pathPosts.pathValue, "posts");
         boolean postPresent = true;
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).getString("ID").equals(postID)) {

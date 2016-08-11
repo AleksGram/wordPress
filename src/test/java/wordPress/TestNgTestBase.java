@@ -18,7 +18,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import ru.stqa.selenium.factory.WebDriverFactory;
@@ -34,6 +33,7 @@ public class TestNgTestBase extends JerseyTest {
     public String login = "***";  //yuor wordPress login
     public String pass = "***"; //your wordPress password
 
+
     @Override
     protected AppDescriptor configure() {
         return new WebAppDescriptor.Builder().build();
@@ -46,6 +46,24 @@ public class TestNgTestBase extends JerseyTest {
 
     public static WebDriver driver;
     public WebDriverWait wait;
+
+    public String urlApiOpenWeth = "http://api.openweathermap.org";
+    public String urlApiWP = "https://public-api.wordpress.com/";
+
+    public enum Pathes {
+        POST("/rest/v1.1/sites/grammsite.wordpress.com/posts"),
+        LIKE("/rest/v1.1/sites/grammsite.wordpress.com/posts/4/likes/");
+
+        public String pathValue;
+
+        Pathes(String path) {
+            pathValue = path;
+        }
+    }
+
+    protected Pathes pathLikes = Pathes.LIKE;
+    protected Pathes pathPosts = Pathes.POST;
+
 
     @BeforeSuite
     public void initTestSuite() throws IOException {
@@ -75,36 +93,25 @@ public class TestNgTestBase extends JerseyTest {
         driver.get(url);
     }
 
-    public WebResource webResource = client().resource("https://public-api.wordpress.com");
-
-
-    public JSONObject createJsoneObject(String path) {
-        JSONObject name = webResource.path(path)
-                .get(JSONObject.class);
-        return name;
-    }
 
     public JSONObject createJsoneObject(String resourseUrl, String pathRequest) {
-        String resourse = resourseUrl;
-        String path = pathRequest;
 
-        WebResource webResource = client().resource(resourse);
-        JSONObject name = webResource.path(path)
+        WebResource webResource = client().resource(resourseUrl);
+        JSONObject name = webResource.path(pathRequest)
                 .get(JSONObject.class);
         return name;
     }
 
-    public JSONObject createJsnObjWithQuerPar(String resourseUrl, String pathRequest,
-                                 String querPar1, String querVal1, String querPar2, String querVal2) {
-        String resourse = resourseUrl;
-        String path = pathRequest;
 
-        WebResource webResource = client().resource(resourse);
-        JSONObject name = webResource.path(path).queryParam(querPar1, querVal1)
+    public JSONObject createJsonObject(String pathRequest, String querPar1,
+                                       String querVal1, String querPar2, String querVal2) {
+        WebResource webResource = client().resource(urlApiOpenWeth);
+        JSONObject name = webResource.path(pathRequest).queryParam(querPar1, querVal1)
                 .queryParam(querPar2, querVal2)
                 .get(JSONObject.class);
         return name;
     }
+
 
     public void switchToFrame(String selector) {
         driver.switchTo().frame(driver.findElement(By.cssSelector(selector)));
@@ -141,20 +148,20 @@ public class TestNgTestBase extends JerseyTest {
         waitPresenceElementCss(".conf-alert");
     }
 
-    public JSONArray createJsoneArray(String path, String key) throws JSONException {
-        JSONObject json = createJsoneObject(path);
+    public JSONArray createJsoneArray(String resourseUrl, String path, String key) throws JSONException {
+        JSONObject json = createJsoneObject(resourseUrl, path);
         JSONArray name = json.getJSONArray(key);
         return name;
     }
 
     public String getPostID(int postNumber) throws JSONException {
-        JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
+        JSONArray jsonArray = createJsoneArray(urlApiWP, "/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
         return jsonArray.getJSONObject(postNumber).getString("ID");
 
     }
 
     public void assertPostIsPresence(String postID) throws JSONException {
-        JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
+        JSONArray jsonArray = createJsoneArray(urlApiWP, "/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
         boolean presenceInPosts = false;
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).getString("ID").equals(postID)) {
@@ -167,7 +174,7 @@ public class TestNgTestBase extends JerseyTest {
     }
 
     public void assertPostIsAbsent(String postID) throws JSONException {
-        JSONArray jsonArray = createJsoneArray("/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
+        JSONArray jsonArray = createJsoneArray(urlApiWP, "/rest/v1.1/sites/grammsite.wordpress.com/posts", "posts");
         boolean absentInPosts = true;
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).getString("ID").equals(postID)) {
@@ -179,10 +186,11 @@ public class TestNgTestBase extends JerseyTest {
         }
     }
 
-    public void openPostsInBlog(){
+    public void openPostsInBlog() {
         waitPresenceElementCss(".masterbar__item");
         pages.getAdminPanelPage().getMySiteBtn().click();
         waitPresenceElementCss(".posts");
         pages.getAdminPanelPage().getShowPostsItem().click();
     }
+
 }

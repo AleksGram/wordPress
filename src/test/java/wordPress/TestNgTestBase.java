@@ -111,6 +111,26 @@ public class TestNgTestBase extends JerseyTest {
                 .get(JSONObject.class);
         return name;
     }
+//--- method create Json Object with varargs-----
+
+    /*public JSONObject createJsonVarArg(String ... args){
+        int quantArgs;
+        JSONObject json= null;
+        quantArgs=args.length;
+        if(quantArgs==2){
+            WebResource webResource = client().resource(args[0]);
+            JSONObject name = webResource.path(args[1])
+                    .get(JSONObject.class);
+            json= name;
+        } else if(quantArgs==5){
+            WebResource webResource = client().resource(urlApiOpenWeth);
+            JSONObject name = webResource.path(args[0]).queryParam(args[1], args[2])
+                    .queryParam(args[3], args[4])
+                    .get(JSONObject.class);
+            json= name;
+        }
+        return json;
+    }*/
 
 
     public void switchToFrame(String selector) {

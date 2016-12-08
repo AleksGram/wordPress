@@ -52,7 +52,7 @@ public class DataProviders {
         final String excelFile = sourceAnnotation.xls();
 
 
-        Object[][] testObjArray = ExcelUtils.getTableArray(excelFile, "Лист1", 7);
+        Object[][] testObjArray = ExcelUtils.getTableArray(excelFile, "Лист1", 6);
         return testObjArray;
     }
 

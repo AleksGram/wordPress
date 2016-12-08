@@ -13,45 +13,51 @@ public class PagesOfTheSite {
         return new LoginPage();
     }
 
-    public static StartPage getStartPage () {
+    public static StartPage getStartPage() {
         return new StartPage();
     }
 
-    public static CreateSitePage getCreateSitePage(){
+    public static CreateSitePage getCreateSitePage() {
         return new CreateSitePage();
     }
 
-    public static LostPasswordPage getLostPasswordPage(){
+    public static LostPasswordPage getLostPasswordPage() {
         return new LostPasswordPage();
     }
 
-    public static MobilePage getMobilePage(){
+    public static MobilePage getMobilePage() {
         return new MobilePage();
     }
 
-    public static ForIosPage getForIosPage(){
+    public static ForIosPage getForIosPage() {
         return new ForIosPage();
     }
 
-    public static ForAndroidPage getForAndroidPage(){
+    public static ForAndroidPage getForAndroidPage() {
         return new ForAndroidPage();
     }
-    public static SitePage getSitePage(){
+
+    public static SitePage getSitePage() {
         return new SitePage();
     }
-    public static ArticlePage getArticlePage(){
+
+    public static ArticlePage getArticlePage() {
         return new ArticlePage();
     }
-    public static LoginForm getLoginForm(){
+
+    public static LoginForm getLoginForm() {
         return new LoginForm();
     }
-    public static AdminWPPage getAdminWPPage(){
+
+    public static AdminWPPage getAdminWPPage() {
         return new AdminWPPage();
     }
-    public static EditorPage getEditorPage(){
+
+    public static EditorPage getEditorPage() {
         return new EditorPage();
     }
-    public static AdminPanelPage getAdminPanelPage(){
+
+    public static AdminPanelPage getAdminPanelPage() {
         return new AdminPanelPage();
     }
 }
